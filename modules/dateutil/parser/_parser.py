@@ -39,8 +39,8 @@ import warnings
 from calendar import monthrange
 from io import StringIO
 
-from ... import six
-from ...six import integer_types, text_type
+import six
+from six import integer_types, text_type
 
 from decimal import Decimal
 

@@ -6,8 +6,7 @@ import platform
 import subprocess
 import sys
 
-from ..dateutil.parser import parse
-
+from dateutil.parser import parse
 
 LIST_FIELDS = ["group", "title", "subtitle", "message", "delivered_at"]
 

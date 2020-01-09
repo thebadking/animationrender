@@ -9,12 +9,12 @@ ISO-8601 specification.
 """
 from datetime import datetime, timedelta, time, date
 import calendar
-from ...dateutil import tz
+from dateutil import tz
 
 from functools import wraps
 
 import re
-from ... import six
+import six
 
 __all__ = ["isoparse", "isoparser"]
 

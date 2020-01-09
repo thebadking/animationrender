@@ -39,7 +39,8 @@ def showNotify(firstFrame, lastFrame, currentFrame, totalFrames, frameStartTime,
         title = "Blender"
         renderingText = " - Rendering"
         osSound = 'Submarine'
-        icopath = sys.path[12]+'\\animationrender\\ico\\Icon3.ico'
+        if oSystem != "Darwin":
+            icopath = sys.path[12]+'\\animationrender\\ico\\Icon3.ico'
         percentage = 0
         
         if step != totalFrames + 1:

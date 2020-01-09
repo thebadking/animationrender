@@ -29,7 +29,7 @@ class TerminalNotifier(object):
         else:
             self.app_path = os.path.join(
                 os.path.dirname(__file__),
-                "vendor/terminal-notifier-%s/blender.app" % self.TERMINAL_NOTIFIER_VERSION
+                "vendor/terminal-notifier-%s/terminal-notifier.app" % self.TERMINAL_NOTIFIER_VERSION
             )
             self.bin_path = os.path.join(self.app_path, "Contents/MacOS/terminal-notifier")
 

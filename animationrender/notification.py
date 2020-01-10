@@ -42,7 +42,7 @@ def showNotify(firstFrame, lastFrame, currentFrame, totalFrames, frameStartTime,
         if oSystem == "Windows":
             icopath = sys.path[12]+'\\animationrender\\ico\\Icon3.ico'
         if oSystem == "Linux":
-            icopath = 
+            icopath = os.getenv("HOME")+'\\.config\\blender\\'+sVer+'\\scripts\\addons\\animationrender\\ico\\Icon3.ico'
         percentage = 0
         
         if step != totalFrames + 1:

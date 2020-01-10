@@ -24,7 +24,7 @@ if oSystem == "Darwin":
     try:
         from pync import Notifier
     except ImportError as error:
-        print("IMPORT ERROR")
+        print("pync IMPORT ERROR")
         stopNotify = True
         print("Running Blender " + sVer + " on macOS System Notification will not work")
 

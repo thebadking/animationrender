@@ -30,10 +30,10 @@ elif oSystem == "Windows" or oSystem == "Linux":
         from plyer import notification
     except ImportError as error:
         print("Plyer Import Error")
-        print("WINDOWS: SYS PATH 10") #C:\Users\USER\AppData\Roaming\Blender Foundation\Blender\2.81\scripts\addons\modules
-        print("WINDOWS: SYS PATH 12") #C:\Users\USER\AppData\Roaming\Blender Foundation\Blender\2.81\scripts\addons
-        print("LINUX: SYS PATH 8")  #/home/USER/.config/blender/2.81/scripts/addons/modules
-        print("LINUX: SYS PATH 10") #/home/USER/.config/blender/2.81/scripts/addons
+        print("WINDOWS: sys.path[10]") #C:\Users\USER\AppData\Roaming\Blender Foundation\Blender\2.81\scripts\addons\modules
+        print("WINDOWS: sys.path[12]") #C:\Users\USER\AppData\Roaming\Blender Foundation\Blender\2.81\scripts\addons
+        print("LINUX: sys.path[8]")  #/home/USER/.config/blender/2.81/scripts/addons/modules
+        print("LINUX: sys.path[10") #/home/USER/.config/blender/2.81/scripts/addons
         
 
     print("Running Blender "+sVer+" on " +oSystem)

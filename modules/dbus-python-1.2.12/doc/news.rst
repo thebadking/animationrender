@@ -1,5 +1,0 @@
-===============
-Release history
-===============
-
-.. include:: ../NEWS

@@ -62,12 +62,14 @@ def showNotify(firstFrame, lastFrame, currentFrame, totalFrames, frameStartTime,
                 timeRemaining = "Calculating!"
             messageM = "Rendering Frame({}): {} out of {} Frames\nProgress: {}% Time remaining: {}".format(currentFrame, step, totalFrames, percentage, timeRemaining)
             messageW = "Frame({}): {} out of {} Frames\nTime remaining: {}".format(currentFrame, step, totalFrames, timeRemaining)
-            if oSystem == "Darwin" and bpy.context.scene.my_tool.f_sound_check == True and stopNotify == False:
-                Notifier.notify(message=messageM, title=title, sound=osSound, group=os.getpid())
-            elif oSystem == "Windows" and stopNotify == False:
-                notification.notify(message=messageW, title=title+renderingText, app_icon=icopath)
-            elif oSystem == "Linux" and stopNotify == False:
-                notification.notify(message=messageW, title=title+renderingText, app_icon=icopath)
+            if stopNotify == False:
+                if oSystem == "Darwin":
+                    if bpy.context.scene.my_tool.f_sound_check == True:
+                        Notifier.notify(message=messageM, title=title, sound=osSound, group=os.getpid())
+                    else:
+                        Notifier.notify(message=messageM, title=title, group=os.getpid())
+                elif oSystem == "Windows" or "Linux":
+                    notification.notify(message=messageW, title=title+renderingText, app_icon=icopath)
 
         elif step == totalFrames + 1:
             totalTime = datetime.now() - renderStartTime
@@ -75,16 +77,16 @@ def showNotify(firstFrame, lastFrame, currentFrame, totalFrames, frameStartTime,
             percentage = 100
             messageM = "Animation rendered in: {}\n{} Frames rendered. {}%".format(totalTime, totalFrames, percentage)
             messageW = "Animation rendered in: {}\n{} Frames rendered".format(totalTime, totalFrames)
-            if oSystem == "Darwin" and bpy.context.scene.my_tool.l_sound_check == True and stopNotify == False:
-                Notifier.notify(message=messageM, title=title, sound=osSound, group=os.getpid())
-            else:
-                if oSystem == "Darwin" and stopNotify == False:
-                    Notifier.notify(message=messageM, title=title, group=os.getpid())
-                if oSystem == "Windows" and stopNotify == False:
+            if stopNotify == False:
+                if oSystem == "Darwin":
+                    if bpy.context.scene.my_tool.l_sound_check == True:
+                        Notifier.notify(message=messageM, title=title, sound=osSound, group=os.getpid())
+                    else:
+                        Notifier.notify(message=messageM, title=title, group=os.getpid())
+                elif oSystem == "Windows" or "Linux":
                     notification.notify(message=messageW, title=title+renderingText, app_icon=icopath)
-                if oSystem == "Linux" and stopNotify == False:
-                    notification.notify(message=messageW, title=title+renderingText, app_icon=icopath)
-    elif stopNotify == True:
+
+    if stopNotify == True:
         if step != totalFrames + 1:
             print("TOTAL TIME: "+ totalTime)
             print("Rendering Frame({}): {} out of {} Frames\nProgress: {}% Time remaining: {}".format(currentFrame, step, totalFrames, percentage, timeRemaining))

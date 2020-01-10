@@ -90,3 +90,8 @@ def showNotify(firstFrame, lastFrame, currentFrame, totalFrames, frameStartTime,
                     notification.notify(message=messageW, title=title+renderingText, app_icon=icopath)
                 if oSystem == "Linux":
                     notification.notify(message=messageW, title=title+renderingText, app_icon=icopath)
+    else:
+        if step != totalFrames + 1:
+            print("Rendering Frame({}): {} out of {} Frames\nProgress: {}% Time remaining: {}".format(currentFrame, step, totalFrames, percentage, timeRemaining))
+        elif step == totalFrames + 1:>
+            print("Animation rendered in: {}\n{} Frames rendered. {}%".format(totalTime, totalFrames, percentage))

@@ -20,3 +20,15 @@ Notifications include how many frames are to be rendered, current frame, percent
 
 
 Tested on macOS, Windows and Linux
+Disabling the Notification check will enable output to console
+Its not possible to interrupt the render process and thats why it saves the blender file before starting, if you want to interrupt the process you will have to force close blender.
+
+IMPORTANT NOTICE FOR MAC:
+installing the addon on mac should be done manually as the decomression method from blender destroys a binary necessary for notification.
+you can install the addon like this:
+uncompress both folders ( animationrender and modules )
+place them on:
+/Users/"YOUR USERNAME"/Library/Application Support/Blender/"YOUR BLENDER VERSION"/scripts/addons/
+
+IMPORTANT NOTICE FOR LINUX:
+Restart blender after activation modue or notifications won't work until restart

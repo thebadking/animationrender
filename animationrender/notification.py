@@ -66,7 +66,7 @@ def showNotify(firstFrame, lastFrame, currentFrame, totalFrames, frameStartTime,
             if oSystem == "Windows":
                     notification.notify(message=messageW, title=title+renderingText, app_icon=icopath)
                 if oSystem == "Linux":
-                    notification.notify(message=messageW, title=title+renderingText, app_icon=icopathL)
+                    notification.notify(message=messageW, title=title+renderingText, app_icon=icopath)
 
         elif step == totalFrames + 1:
             totalTime = datetime.now() - renderStartTime
@@ -85,4 +85,4 @@ def showNotify(firstFrame, lastFrame, currentFrame, totalFrames, frameStartTime,
                 if oSystem == "Windows":
                     notification.notify(message=messageW, title=title+renderingText, app_icon=icopath)
                 if oSystem == "Linux":
-                    notification.notify(message=messageW, title=title+renderingText, app_icon=icopathL)
+                    notification.notify(message=messageW, title=title+renderingText, app_icon=icopath)

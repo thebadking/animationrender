@@ -18,14 +18,16 @@ from datetime import datetime
 def render(context, firstFrame, lastFrame, currentFrame, totalFrames, frameStartTime, renderStartTime, step, tempPath):
     showNotify(firstFrame, lastFrame, currentFrame, totalFrames, frameStartTime, renderStartTime, step)
     print("Current Frame: " +str(currentFrame))
-    context.scene.render.filepath = tempPath+bpy.context.scene.my_tool.prefix+str(currentFrame)
+    context.scene.render.filepath = tempPath+str(currentFrame)
     bpy.ops.render.render(write_still=True)
     context.scene.frame_set(context.scene.frame_current+context.scene.frame_step)
 
 def RenderProcess(context):
+    if bpy.context.scene.my_tool.saveFile == True:
+        bpy.ops.wm.save_mainfile()
     tempPath = context.scene.render.filepath[:]
-    firstFrame = context.scene.my_tool.f_frame
-    lastFrame = context.scene.my_tool.l_frame
+    firstFrame = context.scene.frame_start
+    lastFrame = context.scene.frame_end
     context.scene.frame_set(firstFrame)
     currentFrame = context.scene.frame_current
     renderStartTime = datetime.now()

@@ -29,15 +29,14 @@ class RenderStart(bpy.types.Operator):
     def poll(cls, context):
         return True
     def execute(self, context):
-        bpy.ops.dialog.box('INVOKE_DEFAULT')
-        return {'FINISHED'}
+        from animationrender.render import RenderProcess
+        RenderProcess(context)
+        return {"FINISHED"}
 
 class StartBox(bpy.types.Operator):
     bl_idname = "dialog.box"
-    bl_label= "The Blender file will be saved"
+    bl_label= "You cant stop the Rendering process"
     def execute(self, context):
-        ####SAVE FILE
-        bpy.ops.wm.save_mainfile()
         from animationrender.render import RenderProcess
         RenderProcess(context)
         return {"FINISHED"}
@@ -53,9 +52,9 @@ class MySettings(bpy.types.PropertyGroup):
     l_sound_check: aBool( name = "Play sound at completion", description = "Play sound at completion of Animation Render", default = True)
     f_sound_check: aBool( name = "Play sound per frame", description = "Play sound at completion of each frame", default = False)
     notify_check: aBool( name = "Enable Notification", description = "It will enable notifications using OS notification", default = True)
-    f_frame: aInt( name = "First Frame", description = "First Frame to be rendered", default = 1)
-    l_frame: aInt( name = "Last Frame", description = "Last Frame to be rendered", default = 250)
-    prefix: aString( name="prefix", description= "Lets you set a prefix for output files", default = "000")
+#    f_frame: aInt( name = "First Frame", description = "First Frame to be rendered", default = 1)
+#    l_frame: aInt( name = "Last Frame", description = "Last Frame to be rendered", default = 250)
+    saveFile: aBool( name="Save File", description= "Saves Blender file before rendering", default = True)
         
         #PANEL--------------------------------------------------
 class RenderProcessPnl(bpy.types.Panel):
@@ -73,9 +72,9 @@ class RenderProcessPnl(bpy.types.Panel):
             createProperty("l_sound_check")
             createProperty("f_sound_check")
         createProperty("notify_check")
-        createProperty("f_frame")
-        createProperty("l_frame")
-        createProperty("prefix")
+#        createProperty("f_frame")
+#        createProperty("l_frame")
+        createProperty("saveFile")
 
         self.layout.operator("render.start")
         

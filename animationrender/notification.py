@@ -49,7 +49,7 @@ def showNotify(firstFrame, lastFrame, currentFrame, totalFrames, frameStartTime,
         if oSystem == "Windows":
             icopath = sys.path[12]+'\\animationrender\\ico\\Icon3.ico'
         elif oSystem == "Linux":
-            icopath = sys.path[10]+'\\animationrender\\ico\\Icon3.ico'
+            icopath = sys.path[10]+'//animationrender//ico//Icon1.ico'
         
         
         if step != totalFrames + 1:

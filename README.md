@@ -6,13 +6,9 @@ Animation render is an addon for blender 2.81, it renders by python bypassing th
 
     Render Animation
 
-    First frame
-
-    Last frame
-
-    Prefix for output files
-
     Enable notifications
+    
+    Save file before Rendering
     
     Sound per frame and/or sound at completion (for macOS only)
 
@@ -21,7 +17,7 @@ Notifications include how many frames are to be rendered, current frame, percent
 
 Tested on macOS, Windows and Linux
 Disabling the Notification check will enable output to console
-Its not possible to interrupt the render process and thats why it saves the blender file before starting, if you want to interrupt the process you will have to force close blender.
+Its not possible to interrupt the render process and thats why it saves the blender file before starting(option), if you want to interrupt the process you will have to force close blender.
 
 IMPORTANT NOTICE FOR MAC:
 installing the addon on mac should be done manually as the decomression method from blender destroys a binary necessary for notification.

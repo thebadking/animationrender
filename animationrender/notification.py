@@ -41,6 +41,8 @@ def showNotify(firstFrame, lastFrame, currentFrame, totalFrames, frameStartTime,
         osSound = 'Submarine'
         if oSystem == "Windows":
             icopath = sys.path[12]+'\\animationrender\\ico\\Icon3.ico'
+        if oSystem == "Linux":
+            icopath = 
         percentage = 0
         
         if step != totalFrames + 1:
@@ -60,11 +62,10 @@ def showNotify(firstFrame, lastFrame, currentFrame, totalFrames, frameStartTime,
                 Notifier.notify(message=messageM, title=title, sound=osSound, group=os.getpid())
             elif oSystem == "Windows" or oSystem == "Linux":
                 notification.notify(message=messageW, title=title+renderingText, app_icon=icopath)
-            else:
-                if oSystem == "Darwin":
-                    Notifier.notify(message=messageM, title=title, group=os.getpid())
-                if oSystem == "Windows" or oSystem == "Linux":
+            if oSystem == "Windows":
                     notification.notify(message=messageW, title=title+renderingText, app_icon=icopath)
+                if oSystem == "Linux":
+                    notification.notify(message=messageW, title=title+renderingText, app_icon=icopathL)
 
         elif step == totalFrames + 1:
             totalTime = datetime.now() - renderStartTime
@@ -80,5 +81,7 @@ def showNotify(firstFrame, lastFrame, currentFrame, totalFrames, frameStartTime,
             else:
                 if oSystem == "Darwin":
                     Notifier.notify(message=messageM, title=title, group=os.getpid())
-                if oSystem == "Windows" or oSystem == "Linux":
+                if oSystem == "Windows":
                     notification.notify(message=messageW, title=title+renderingText, app_icon=icopath)
+                if oSystem == "Linux":
+                    notification.notify(message=messageW, title=title+renderingText, app_icon=icopathL)

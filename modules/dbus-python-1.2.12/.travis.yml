@@ -1,0 +1,64 @@
+# Copyright © 2016 Simon McVittie
+#
+# SPDX-License-Identifier: MIT
+#
+# Permission is hereby granted, free of charge, to any person
+# obtaining a copy of this software and associated documentation
+# files (the "Software"), to deal in the Software without
+# restriction, including without limitation the rights to use, copy,
+# modify, merge, publish, distribute, sublicense, and/or sell copies
+# of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be
+# included in all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+# NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+# HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+# WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+# DEALINGS IN THE SOFTWARE.
+
+sudo: required
+dist: xenial
+language: python
+cache:
+  pip: true
+  directories:
+    - $HOME/.ccache
+install:
+  - test -z "$dbus_ci_system_python" || deactivate
+  - ./tools/ci-install.sh
+python:
+  - "3.6"
+  - "3.6-dev"
+  - "3.7-dev"
+  - "nightly"
+script:
+  - PATH="/usr/lib/ccache:$PATH" ./tools/ci-build.sh
+
+matrix:
+  include:
+    - python: "2.7"
+      env:
+        dbus_ci_system_python=python
+    - python: "2.7"
+      env:
+        dbus_ci_system_python=python-dbg
+    - python: "3.5"
+      env:
+        dbus_ci_system_python=python3
+    - python: "3.5"
+      env:
+        dbus_ci_system_python=python3-dbg
+    - python: "3.7"
+      env:
+        ci_distro=debian ci_docker=debian:buster-slim ci_suite=buster dbus_ci_system_python=python3
+    - python: "3.7"
+      env:
+        ci_distro=debian ci_docker=debian:buster-slim ci_suite=buster dbus_ci_system_python=python3-dbg
+
+# vim:set sw=2 sts=2 et:

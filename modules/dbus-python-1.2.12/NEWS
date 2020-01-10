@@ -1,0 +1,785 @@
+dbus Python Bindings 1.2.12 (2019-09-12)
+========================================
+
+The “spinal bap” release.
+
+Fixes:
+
+• Don't save and restore the exception indicator when called from C code.
+  This avoided "returned a result with an error set" errors under some
+  circumstances, but also caused a regression for code that relies on
+  being able to terminate the program by calling sys.exit() or raising
+  SystemExit from a dbus-python method. In particular, this broke one of
+  libsecret's unit tests. (Debian #940087; Simon McVittie)
+
+D-Bus Python Bindings 1.2.10 (2019-09-02)
+=========================================
+
+The “wingèd horse” release.
+
+dbus-python version control is now hosted on freedesktop.org's Gitlab
+installation, and bug reports and feature requests have switched from
+Bugzilla bugs (indicated by "fd.o #nnn") to Gitlab issues
+("dbus-python#nnn") and merge requests ("dbus-python!nnn"). See README
+and CONTRIBUTING.md for more details.
+
+Dependencies:
+
+• dbus 1.8 was already required, but is more strongly required now:
+  the workarounds that were used to run continuous integration with dbus
+  1.6 on Ubuntu 14.04 'trusty' have been removed. (Note that dbus 1.8
+  has already reached end-of-life for security support, and newer dbus
+  stable branches are strongly recommended.)
+
+• When using Python 3, version 3.5 or later is strongly recommended.
+  Python 3.4 security support ended in March 2019. No specific
+  incompatibilities are known, but using dbus-python on Python 3.4 is
+  no longer tested or supported.
+
+Enhancements:
+
+• Rewrite CONTRIBUTING.md document, based on Wayland's equivalent
+  (Simon McVittie, with thanks to Ander Conselvan de Oliveira,
+  Bryce Harrington, Eric Engestrom, Pekka Paalanen and Daniel Stone
+  for their contributions to the equivalent file in Wayland)
+
+• A generated ChangeLog file is no longer included in source tarballs.
+  Please refer to the git repository at
+  https://gitlab.freedesktop.org/dbus/dbus-python for detailed change
+  history. (Simon McVittie)
+
+• Improve continuous integration to be run by GitLab in addition to
+  Travis-CI (Simon McVittie)
+
+• Add clearer license information using SPDX-License-Identifier
+  (Simon McVittie)
+
+• Improve test coverage (Simon McVittie)
+
+Fixes:
+
+• Don't set deprecated tp_print to NULL under Python 3, fixing build
+  warnings with Python 3.8 pre-releases (Simon McVittie)
+
+• Include inherited methods and properties when documenting objects,
+  which regressed when migrating from epydoc to sphinx
+  (Simon McVittie)
+
+• Add missing variant_level member to UnixFd type, for parity with the
+  other dbus.types types (dbus-python!3; John Baublitz)
+
+    - Note that this is a potentially incompatible change: unknown
+      keyword arguments were previously ignored (!) and are now an error.
+
+• Don't reply to method calls if they have the NO_REPLY_EXPECTED flag
+  (fd.o#32529, dbus-python#26; Simon McVittie)
+
+• Silence -Wcast-function-type with gcc 8 (Simon McVittie)
+
+• Fix distcheck with python3.7 by deleting __pycache__ during uninstall
+  (Simon McVittie)
+
+• Consistently save and restore the exception indicator when called
+  from C code (Simon McVittie)
+
+• Avoid a long-standing race condition in the automated tests
+  (Debian #898158; Simon McVittie)
+
+• Fix Qt website URL (Ralf Habacker)
+
+D-Bus Python Bindings 1.2.8 (2018-05-04)
+========================================
+
+The “cursed ice surface” release.
+
+Dependencies:
+
+• Documentation requires Sphinx and the readthedocs theme
+• Documentation no longer requires epydoc
+
+Enhancements:
+
+• Build documentation with Sphinx instead of epydoc
+
+• Remove obsolete COMPAT.txt, documenting compatibility breaks in
+  versions over a decade old
+
+Fixes:
+
+• Make sure $(builddir)/test exists before creating .test files there
+
+• Add PKG-INFO and egg_info to dist tarballs so they can be uploaded
+  to PyPI again
+
+D-Bus Python Bindings 1.2.6 (2018-01-29)
+========================================
+
+The “doppler radar” release.
+
+Dependencies:
+
+• When using Python 2, version 2.7 is now required. Python 2.6 security
+  support ended in 2013.
+• When using Python 3, version 3.4 or later is now required.
+  Python 3.2 security support ended in 2016, and Python 3.3 security
+  support ended in 2017.
+• Most unit tests now require the tap.py module from PyPI.
+• The deprecated dbus-glib library is no longer required. A bundled copy
+  of its main loop integration code is included instead.
+• GLib version 2.40 or later is required.
+• libdbus version 1.8 or later is required.
+
+Enhancements:
+
+• AX_PYTHON_DEVEL is now used to find the CPPFLAGS, LDFLAGS and libraries
+  needed to link test-import-repeatedly to libpython, which should reduce
+  the number of wheels reinvented here.
+
+• Remove workarounds for Python 2.6 limitations
+
+• All unit tests now produce structured output (TAP)
+
+Fixes:
+
+• Fix a NULL dereference in constructing a Server if the underlying C
+  function fails
+
+• Silence compiler warnings triggered by the Python headers under gcc 7
+
+• Avoid __gtype__ appearing in documentation, for reproducible builds
+
+• Rename _dbus_bindings/ and _dbus_glib_bindings/ source directories to
+  dbus_bindings/ and dbus_glib_bindings/ to avoid an ImportWarning
+  appearing in the API documentation, which made the documentation build
+  non-reproducible
+
+D-Bus Python Bindings 1.2.4 (2016-03-06)
+========================================
+
+The “75,000 microchips” release.
+
+Enhancements:
+
+• Continous integration metadata for travis-ci.org is now available.
+  Similar to dbus, this is split into .travis.yml (Travis-specifics)
+  and tools/ci-build.sh (intended to be useful for any CI framework,
+  although it does include various workarounds for travis-ci oddities).
+  (Simon McVittie)
+
+Fixes:
+
+• Make dbus.version a tuple again, not a list, for consistent sorting.
+  This was a regression in 1.2.2. (Debian #816729, Simon McVittie)
+
+• Use inspect.signature() instead of inspect.getargspec() on Python
+  versions that have it. inspect.getargspec() is deprecated in recent
+  Python 3 and seems to have disappeared from 3.6 nightly builds.
+  (Simon McVittie)
+
+• Make the tests pass in "narrow" Python builds where unicode objects
+  are UTF-16, rather than the UCS-4 used in Linux distributions.
+  (fd.o #57140, Simon McVittie)
+
+• Always include headers in a consistent order (Debian #749133, Simon McVittie)
+
+• Include config.h in all C code that we compile. This is necessary
+  on platforms where it might contain something like "#define _GNU_SOURCE"
+  or "#define inline __inline".
+  (Simon McVittie)
+
+D-Bus Python Bindings 1.2.2 (2016-02-22)
+========================================
+
+The “mind fray” release.
+
+Versioning changes:
+
+• dbus-python releases now have an even micro version (1.2.0, 1.2.2),
+  and snapshots from git have an odd micro version (1.2.1).
+
+Dependencies:
+
+• Building from git (but not from tarballs) now requires
+  macros from the GNU Autoconf Archive, for example the autoconf-archive
+  package in Debian or Fedora derivatives.
+
+• Building from git (but not from tarballs) now requires Automake 1.13
+  or later.
+
+• The automated tests and some examples now require PyGI (the gi module),
+  not PyGObject 2 (the deprecated glib and gobject modules).
+
+Enhancements:
+
+• There is now a setuptools setup.py, allowing dbus-python to be installed
+  into a virtualenv using pip from a standard Automake source release. This
+  requires pre-existing system-wide installations of the normal build
+  dependencies (pkg-config, libdbus, dbus-glib, a C compiler) and has
+  some limitations. For system-wide installations and development,
+  please use the Autoconf/Automake build system directly.
+  (fd.o #55439; Simon McVittie)
+
+• dbus-python now uses the common compiler warnings from AX_COMPILER_FLAGS
+  (Simon McVittie)
+
+• The automated tests can now be installed as GNOME-style "installed tests",
+  and should be somewhat more reliable (Simon McVittie)
+
+Fixes:
+
+• ``from dbus.service import *`` now imports FallbackObject
+  (fd.o #85720; Ben Longbons)
+
+• The GConf-related examples work again (fd.o #85720; Ben Longbons)
+
+• Consistently make examples executable, and install them all
+  (fd.o #85720; Ben Longbons)
+
+• Search PATH for an appropriately-versioned pythonX.Y-config, or as a last
+  resort python-config, if there isn't a ${PYTHON}-config in the
+  same directory as ${PYTHON} (fd.o #92085; Yamashita, Yuu)
+
+• Add support for the Automake 1.13 parallel test driver (Simon McVittie)
+
+• Skip building API documentation if "import epydoc" fails (Simon McVittie)
+
+D-Bus Python Bindings 1.2.0 (2013-05-07)
+========================================
+
+The "compile like it's 1998" release.
+
+Dependencies:
+
+• libdbus 1.6 or later is now required.
+
+Enhancements:
+
+• Unicode Corrigendum 9: when used with a suitable version of libdbus
+  (1.6.10 or later, or 1.7.2 or later), noncharacters in strings are
+  now accepted
+
+Fixes:
+
+• Support DBusException('something with non—ASCII') under Python 2
+  (Michael Vogt, smcv; fd.o #55899)
+
+• Correct some misleading wording in COPYING which was written under the
+  assumption that libdbus could actually be relicensed to MIT/X11
+  (Thiago Macieira)
+
+• Avoid variable-length arrays, because MSVC++ is still stuck in 1998
+  (based on patches from Christoph Höger, fd.o #51725)
+
+• Remove unnecessary uses of stdint.h (fd.o #51725)
+
+• Add support for Unix compilers not supporting 'inline', for completeness
+
+• Use GObject.__class__ instead of GObjectMeta, which can no longer be
+  imported from gi.repository.GObject in pygobject 3.8
+
+• Fix autoreconfiscation on Automake 1.13 (Marko Lindqvist, fd.o #59006)
+
+D-Bus Python Bindings 1.1.1 (2012-06-25)
+========================================
+
+The "Lemonade Sky" release.
+
+Dependencies:
+
+• libdbus 1.6 or later is now recommended. It is not strictly required yet.
+
+Fixes:
+
+• Validate UTF-8 according to the rules libdbus uses, falling back to our
+  own (inefficient) implementation if not compiled against dbus >= 1.6
+  (fd.o #40817)
+
+• Under Python 3, in the absence of introspection or signature='...',
+  pass dbus.ObjectPath or dbus.Signature arguments with the obvious
+  signature 'o' or 'g', not 's'. This previously only worked in Python 2.
+  (fd.o #50740)
+
+D-Bus Python Bindings 1.1.0 (2012-05-09)
+========================================
+
+The “eaten by spiders” release.
+
+Deprecations:
+
+• dbus.gobject_service is deprecated. Use dbus.gi_service and PyGI in new code.
+
+API changes:
+
+• dbus.gobject_service works in legacy PyGObject 2 applications again,
+  like it did before 1.0. The down side is that it doesn't work in all PyGI
+  applications any more, unlike 1.0. In PyGI applications, depend on
+  dbus-python >= 1.1 and use dbus.gi_service instead - its API is the same.
+  (fd.o #48904, Debian #670516)
+
+• dbus.gobject_service has been removed from Python 3 builds altogether.
+
+Enhancements:
+
+• Use DBusBasicValue from libdbus 1.5, if available, rather than reinventing it
+
+Fixes:
+
+• Put sockets for the regression tests in /tmp, not the builddir, fixing
+  test failures in a really long builddir (fd.o #46747)
+
+• Fix a reference leak in dbus_py_variant_level_set (fd.o #47108)
+
+• Modify AM_CHECK_PYTHON_HEADERS so the "another way" works with Python 3
+
+D-Bus Python Bindings 1.0.0 (2012-01-24)
+========================================
+
+The "never trust a .0 release?" release.
+
+Dependencies:
+
+* libdbus 1.4 or later is now required.
+
+* Python 2.6 or later is now required. If Python 3 is used, it must be
+  version 3.2 or later.
+
+* GNU make (or, at your own risk, another make with the GNU $(patsubst)
+  extension) is now required.
+
+API changes:
+
+* dbus_bindings, which was never meant to be public API and has been
+  deprecated for nearly 5 years, has finally been removed.
+
+* The repr() of every dbus-python object is now unicode.
+
+* The Python 3 API is not the same as the Python 2 API; see PY3PORT.rst
+  for details.
+
+• dbus.gobject_service uses PyGI, not PyGObject. (This was not meant to be
+  an incompatible change, but unfortunately, it was. It was reverted in 1.1.0.)
+
+Enhancements:
+
+* Python 3 compatibility (fd.o #26420, Barry Warsaw)
+
+* MethodCallMessage and SignalMessage now have a more useful repr()
+  (Barry Warsaw)
+
+Fixes:
+
+* OOM while appending a unicode object to a message no longer leaks a string
+  (Barry Warsaw)
+
+* If libdbus somehow gives us invalid UTF-8, don't crash (Barry Warsaw)
+
+* Fix rst2html failure in non-UTF-8 locales (Alexandre Rostovtsev)
+
+D-Bus Python Bindings 0.84.0 (2011-05-25)
+=========================================
+
+The "Comrade Bill Bartram's Egalitarian Anti-Imperialist Soviet Stout" release.
+
+Enhancements:
+
+* fd.o #30812: add the UnixFd type, and support Unix fd passing if
+  compiled against a new enough libdbus (Elvis Pfützenreuter)
+
+* fd.o #34342: add Connection.set_allow_anonymous(bool) (Scott Tsai)
+
+* fd.o #21017: add configure arguments PYTHON_INCLUDES and PYTHON_LIBS which
+  can be used to override $PYTHON-config (Simon McVittie, based on a patch from
+  Robert Schwebel)
+
+Fixes:
+
+* fd.o #35626: clear ProxyObject's pending introspection queue after
+  execution (Scott Tsai)
+
+* fd.o #22560: remove duplicate code from example-async-client (Simon McVittie)
+
+* fd.o #36206: allow signature='x' among ProxyObject method arguments
+  (Simon McVittie)
+
+D-Bus Python Bindings 0.83.2 (2010-12-02)
+=========================================
+
+Dependencies:
+
+* libdbus 1.2 is still supported, but libdbus >= 1.4 is recommended.
+
+Fixes:
+
+* Make BusConnection.list_activatable_names actually call ListActivatableNames,
+  not ListNames (Johan Sandelin)
+
+* Don't override CFLAGS when adding compiler warnings
+  (Louis-Francis Ratté-Boulianne)
+
+* Fix compilation on platforms where Py_ssize_t is larger than int, like x86-64
+  (Elvis Pfützenreuter)
+
+* fd.o #21831: deserialize empty byte arrays with byte_arrays=True as
+  ByteArray(''), not ByteArray('None') (Simon McVittie)
+
+* fd.o #23278, #25105: fix crashes when trying to append more struct entries
+  than the signature allows with libdbus 1.4 (Simon McVittie)
+
+* fd.o #23831: fix crashes when an embedded Python interpreter imports dbus,
+  is finalized, is re-initialized, and re-imports dbus (Simon McVittie)
+
+D-Bus Python Bindings 0.83.1 (2010-02-18)
+=========================================
+
+Fixes:
+
+* fd.o #21172: avoid some deprecation warnings in Python 2.6
+
+* fd.o #15013: add dbus.lowlevel.MESSAGE_TYPE_SIGNAL etc., for those who care
+  about message types at a low level
+
+* When removing signal matches, clean up internal state, avoiding a memory
+  leak in long-lived Python processes that connect to signals from arbitrarily
+  many object paths (fd.o #17551, thanks to Marco Pesenti Gritti)
+
+* When setting the sender of a message, allow it to be org.freedesktop.DBus
+  so you can implement a D-Bus daemon in pure Python (patch from Huang Peng)
+
+D-Bus Python Bindings 0.83.0 (2008-07-23)
+=========================================
+
+Features:
+
+* Add bindings for DBusServer (thanks to Mathias Hasselmann, Huang Peng;
+  fd.o #14322, #15514).
+
+* Omit the service's traceback from certain D-Bus errors: specifically, those
+  that were probably deliberately raised as part of an API. Subclasses
+  of DBusException that indicate programmer error can turn the traceback
+  back on if it seems likely to be useful.
+
+Fixes:
+
+* Don't emit spurious Error messages if libdbus gives object-path handlers
+  a message that isn't a method call (most likely because of binding to a
+  locally emitted signal, as in fd.o #14199).
+
+* Make multiple filters added by Connection.add_message_filter work
+  (fd.o #15547, thanks to Huang Peng).
+
+* Make the API docs build correctly when out-of-tree
+
+* Require dbus 1.0 so we can get rid of DBUS_API_SUBJECT_TO_CHANGE
+
+D-Bus Python Bindings 0.82.4 (2007-12-10)
+=========================================
+
+Fixes:
+
+* supplying reply_handler but not error_handler raises
+  MissingReplyHandlerException instead of MissingErrorHandlerException,
+  and vice versa (fd.o #12304, patch from René Neumann)
+* Using non-recursive make for dbus/ directory should fix builds in some
+  environments (fd.o #12741)
+
+Licensing:
+
+* Everything is now under the same MIT/X11 license used for Collabora code in
+  the previous release
+* Added copyright headers to some files that were still missing them
+
+D-Bus Python Bindings 0.82.3 (2007-09-27)
+=========================================
+
+Fixes:
+
+* Out-of-tree builds with an absolute $(srcdir) can now build docs and run tests
+* Closing private dbus.Bus no longer raises KeyError (fd.o #12096)
+* async_err_cb(MyException()) now works (fd.o #12403)
+* dbus.service.Object.remove_from_connection no longer claims that multiple
+  exports aren't possible (fd.o #12432)
+* Setting _dbus_error_name as a class attribute of DBusException subclasses
+  works again
+
+Deprecations:
+
+* dbus.Bus(private=True) (use dbus.bus.BusConnection in new code, dbus.Bus
+  basically just adds the shared-connection behaviour)
+
+Licensing:
+
+* Code for which Collabora is the only copyright holder is now under the
+  same permissive MIT/X11 license under which dbus core is being relicensed
+  (this allows everything the old license would have allowed, and more)
+
+D-Bus Python Bindings 0.82.2 (2007-08-01)
+=========================================
+
+Incompatibility with 0.82.1:
+
+* If you pass the timeout argument to call_async or an asynchronous proxy
+  method call and expect it to be in milliseconds, you should change the
+  argument to be in seconds, and require dbus-python >= 0.82.2.
+
+  This feature didn't work at all in versions prior to 0.82.1, so any code
+  that works with 0.82.0 or earlier is unaffected.
+
+Features:
+
+* @dbus.service.method supports a rel_path_keyword argument for the benefit
+  of fallback objects, which provides the method implementation with the path
+  of the object within the exported subtree. For instance, if you have a
+  fallback object exported at /Fallback, and you call a method that has
+  rel_path_keyword='rel_path' on /Fallback and on /Fallback/Some/Where, the
+  method implementation will be called with rel_path='/' and with
+  rel_path='/Some/Where' respectively. (fd.o #11623)
+
+* If you have epydoc version 3 (currently in beta), API documention is now
+  generated by default.
+
+Fixes:
+
+* As mentioned under "Incompatibilities" above, Connection.call_async()
+  measures timeouts in seconds, as was always intended.
+  This means that calls through a proxy object with a reply_handler and
+  error_handler will measure the timeout in seconds too.
+
+* Introspect() now works on objects exported in more than one location.
+  (fd.o #11794)
+
+* Building against Python 2.4 on non-Debian-derived distributions, or a
+  non-default Python version on Gentoo, should work again (revenge
+  of fd.o #11282, thanks Eyal Ben David).
+
+D-Bus Python Bindings 0.82.1 (2007-07-11)
+=========================================
+
+The "double precision" release.
+
+Fixes:
+
+* Parse the timeout correctly in send_message_with_reply() and
+  send_message_with_reply_and_block(), fixing the use of non-default timeouts
+  (bugs.fd.o #11489)
+* The tutorial no longer uses interactive-Python syntax, as it confused users.
+  (bugs.fd.o #11209)
+* When making a call via a proxy object with ignore_reply=True, also get the
+  necessary introspection data asynchronously. This can avoid deadlocks in
+  some cases, such as calling methods in the same process (though this is not
+  recommended, for efficiency and sanity reasons).
+* dbus.lowlevel exposes enough constants to write correct filter functions.
+* We don't use dbus_watch_get_fd() (deprecated in libdbus) unless our libdbus
+  is too old to have the modern replacement, dbus_watch_get_unix_fd().
+
+Deprecations:
+
+* Omitting the bus argument in the BusName constructor is deprecated.
+  The fact that it uses the globally shared connection to the session bus by
+  default is uncomfortably subtle.
+
+D-Bus Python Bindings 0.82.0 (2007-06-19)
+=========================================
+
+Features:
+
+* dbus.service.Object can start off with no Connection or object path, and
+  become exported later. If suitable class attributes are set, objects can
+  even be exported on multiple connections, or with multiple object-paths,
+  or both.
+
+* dbus.service.FallbackObject implements a whole subtree of object-path space
+  (fd.o #9295).
+
+* ``@method`` accepts a parameter ``connection_keyword`` so methods can find
+  out which connection to use for any follow-up actions.
+
+* ``@signal`` has a new parameter ``rel_path_keyword`` which gets the path at
+  which to emit the signal, relative to the path of the FallbackObject.
+  ``path_keyword`` is now deprecated, and will raise an exception if used
+  on an object with ``SUPPORTS_MULTIPLE_OBJECT_PATHS``, including any
+  ``FallbackObject``.
+
+Fixes:
+
+* In watch_name_owner, only the desired name is watched!
+
+* When cleaning up signal matches, errors are ignored. This avoids using up
+  scarce pending-call allowance on dbus-daemon < 1.1, and emitting error
+  messages if we get disconnected.
+
+* Signal handlers which are bound to a unique name are automatically
+  disconnected when the unique name goes away, reducing the likelihood that
+  applications will leak signal matches.
+
+* Some corrections were made to the tutorial (@service and @method take a
+  parameter dbus_interface, not just interface; fd.o #11209).
+
+* ${PYTHON}-config is used to get the Python include path (patch from
+  Sebastien Bacher/Ubuntu, fd.o #11282).
+
+D-Bus Python Bindings 0.81.1 (4 June 2007)
+==========================================
+
+Features:
+
+* When an Error message on the bus is represented as a DBusException, the
+  error name is copied into the exception and can be retrieved by
+  get_dbus_name(). Exception handlers should use this instead of looking at
+  the stringified form of the exception, unless backwards compatibility
+  is needed.
+* DBusException objects now get all arguments from the Error message, not
+  just the first (although there will usually only be one). Use the 'args'
+  attribute if you need to retrieve them.
+* The Connection, BusConnection and Bus classes have a method
+  list_exported_child_objects(path: str) -> list of str, which wraps
+  dbus_connection_list_registered()
+* You can remove objects from D-Bus before they become unreferenced, by
+  using dbus.service.Object.remove_from_connection()
+  (https://bugs.freedesktop.org/show_bug.cgi?id=10457)
+
+Bug fixes:
+
+* Don't deadlock when removing a signal match that tracks name-owner changes.
+  (http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=426412)
+* Include child nodes in introspection using list_exported_child_objects()
+
+D-Bus Python Bindings 0.81.0 (9 May 2007)
+=========================================
+
+The 'series of tubes' release
+-----------------------------
+
+This is a feature release with support for non-bus-daemon connections
+and improved GObject integration.
+
+Features:
+
+* Bus has a superclass dbus.bus.BusConnection (a connection to a bus daemon,
+  but without the shared-connection semantics or any deprecated API)
+  for the benefit of those wanting to subclass bus daemon connections
+
+* BusConnection has a superclass dbus.connection.Connection (a
+  connection without a bus daemon) for use in peer-to-peer situations,
+  or distributed pseudo-bus situations without a bus daemon such as
+  Telepathy's Tubes API
+
+* dbus.gobject_service.ExportedGObject is like dbus.service.Object, but
+  is also a subclass of GObject (with the necessary metaclass magic to
+  make this work). Until someone has verified that the GObject side of
+  things works as expected too, I consider this API to be potentially
+  subject to change!
+
+* Connection and BusConnection have gained a number of useful methods,
+  including watch_name_owner (track name owner changes asynchronously,
+  avoiding race conditions), call_blocking and call_async (blocking and
+  asynchronous method calls without going via a proxy - note that these
+  are semi-low-level interfaces which don't do introspection), and
+  list_names, list_activatable_names and get_name_owner which are
+  simple wrappers for the corresponding org.freedesktop.DBus methods
+
+* dbus.Interface (now also available at dbus.proxies.Interface)
+  and dbus.proxies.ProxyObject now have some reasonably obvious properties.
+
+Deprecations:
+
+* All keyword arguments called named_service are deprecated in favour of an
+  argument called bus_name (to be compatible with both older and newer
+  dbus-python, you should pass these positional arguments).
+
+* The bus keyword argument to dbus.proxies.ProxyObject is deprecated in
+  favour of an argument called conn, because proxies will work on non-bus
+  connections now (again, for maximum compatibility you should use a
+  positional argument for this).
+
+* No warning is raised for this, but I consider calling any remote method
+  on a ProxyObject or Interface whose name is either alllowercase or
+  lower_case_with_underscores to be deprecated, and reserve the right
+  to add properties or methods of this form in future releases - use
+  ProxyObject.get_dbus_method if you must call a remote method named in
+  this way. Methods named following TheUsualDBusConvention or
+  theJavaConvention are safe.
+
+Bugfixes:
+
+* Exceptions in signal handlers print a stack trace to stderr (this can
+  be redirected elsewhere with Python's logging framework). Partially
+  addresses fd.o #9980.
+
+* The reserved local interface and object path are properly checked for.
+
+* When you return a tuple that is not a Struct from a method with no
+  out_signature, it's interpreted as multiple return values, not a
+  single Struct (closes fd.o #10174).
+
+* If send_with_reply() returns TRUE but with pending call NULL, dbus-python
+  no longer crashes. This can happen when unexpectedly disconnected.
+
+* Arguments are not examined for functions declared METH_NOARGS (this is
+  unnecessary and can cause a crash).
+
+Other notable changes:
+
+* dbus-python uses the standard Python logging framework throughout.
+  The first time a WARNING or ERROR is generated, it will configure the
+  logging framework to output to stderr, unless you have already
+  configured logging in your application.
+
+* The tutorial now advocates the use of add_signal_receiver if all you
+  want to do is listen for signals: this avoids undesired activation,
+  e.g. of Listen or Rhythmbox (!). Addresses fd.o #10743, fd.o #10568.
+
+D-Bus Python Bindings 0.80.2 (13 February 2007)
+===============================================
+- Fix numerous memory and reference leaks
+- Only use -Werror if the user specifically asks for it
+- Audit tp_dealloc callbacks to make sure they correctly preserve the
+  exception state
+- Relicense files solely owned by Collabora Ltd. more permissively (LGPL/AFL
+  rather than GPL/AFL) - this includes the tutorial and all the C code
+
+D-Bus Python Bindings 0.80.1 (24 January 2007)
+==============================================
+- The "oops" release
+- Install dbus/_version.py, so dbus.__version__ exists again
+
+D-Bus Python Bindings 0.80.0 (24 January 2007)
+==============================================
+- The "everything changes" release
+- Rewrite dbus_bindings (Pyrex) as _dbus_bindings (C) - API changes!
+- Define what's public API
+- Move low-level but still public API to dbus.lowlevel
+- Remove Variant class, add variant_level property on all D-Bus types
+- Make signal matching keep working as expected when name ownership changes
+- Use unambiguous D-Bus types when transferring from D-Bus to Python
+- Follow well-defined rules when transferring from Python to D-Bus
+- Add utf8_strings and byte_arrays options in various places, so a user
+  can tweak the calling conventions to be more efficient
+- Raise RuntimeError if user tries to use a connection with no main loop
+  to do something that won't work without one
+- Make asynchronous method calls actually asynchronous when made before
+  introspection results come back
+- Redo main loop machinery so we can add pure-Python main loops later without
+  API breakage
+- Allow construction of a dbus.service.Object if you don't have a BusName
+  (or even a Bus)
+- Port introspection XML parser from libxml2 (external package) to expat
+  (included with Python)
+- Port build system from distutils to autoconf/automake/libtool
+- Install a header file for third-party main loop integration
+- Make compatible with Python 2.5, including on 64-bit platforms
+- Add docstrings throughout
+- Add more tests and examples
+- Add interoperability tests (which interoperate with Java)
+- Add copyright notices!
+
+D-Bus Python Bindings 0.71 (24 July 2006)
+==============================================================
+- Binary modules are now installed in the correct directory
+- Distutils exports the dbus and dbus-glib cflags
+
+D-Bus Python Bindings 0.70 (17 July 2006)
+==============================================================
+- First release of bindings split
+- Move to a distutils build enviornment
+- It is possible to now specify sender_keyword="foo", path_keyword="bar" when 
+  adding a signal listener

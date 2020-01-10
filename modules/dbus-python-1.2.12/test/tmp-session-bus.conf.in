@@ -1,0 +1,23 @@
+<!-- @configure_input@ -->
+<!DOCTYPE busconfig PUBLIC "-//freedesktop//DTD D-BUS Bus Configuration 1.0//EN"
+ "http://www.freedesktop.org/standards/dbus/1.0/busconfig.dtd">
+<busconfig>
+  <!-- Our well-known bus type, don't change this -->
+  <type>session</type>
+  <listen>unix:tmpdir=/tmp</listen>
+
+  <servicedir>@G_TEST_BUILDDIR@/test</servicedir>
+
+  <policy context="default">
+    <!-- Allow everything to be sent -->
+    <allow send_destination="*"/>
+    <!-- Allow everything to be received -->
+    <allow eavesdrop="true"/>
+    <!-- Allow anyone to own anything -->
+    <allow own="*"/>
+    <!-- Allow unrequested replies -->
+    <allow send_destination="*" send_requested_reply="false"/>
+  </policy>
+
+</busconfig>
+<!-- vim:set ft=xml sts=2 sw=2 et: -->

@@ -18,28 +18,30 @@ ver = bpy.app.version_string
 sVer = str(ver[0:4])
 pyVer=sys.version[0:3]
 oSystem = platform.system()
+stopNotify = False
 
 if oSystem == "Darwin":
     try:
         from pync import Notifier
     except ImportError as error:
         print("IMPORT ERROR")
-    print("Running Blender " + sVer + " on macOS")
+        stopNotify = True
+        print("Running Blender " + sVer + " on macOS System Notification will not work")
+
 elif oSystem == "Windows" or oSystem == "Linux":
     try:
         from plyer import notification
     except ImportError as error:
+        stopNotify = True
         print("Plyer Import Error")
-        print("WINDOWS: sys.path[10]") #C:\Users\USER\AppData\Roaming\Blender Foundation\Blender\2.81\scripts\addons\modules
-        print("WINDOWS: sys.path[12]") #C:\Users\USER\AppData\Roaming\Blender Foundation\Blender\2.81\scripts\addons
-        print("LINUX: sys.path[8]")  #/home/USER/.config/blender/2.81/scripts/addons/modules
-        print("LINUX: sys.path[10") #/home/USER/.config/blender/2.81/scripts/addons
-        
-
-    print("Running Blender "+sVer+" on " +oSystem)
+        print("WINDOWS: SYS PATH 10") #C:\Users\USER\AppData\Roaming\Blender Foundation\Blender\2.81\scripts\addons\modules
+        print("WINDOWS: SYS PATH 12") #C:\Users\USER\AppData\Roaming\Blender Foundation\Blender\2.81\scripts\addons
+        print("LINUX: SYS PATH 8")  #/home/USER/.config/blender/2.81/scripts/addons/modules
+        print("LINUX: SYS PATH 10") #/home/USER/.config/blender/2.81/scripts/addons
+        print("Running Blender "+sVer+" on " +oSystem+ " System Notification will not work")
 
 def showNotify(firstFrame, lastFrame, currentFrame, totalFrames, frameStartTime, renderStartTime, step):
-    if bpy.context.scene.my_tool.notify_check == True:
+    if bpy.context.scene.my_tool.notify_check == True and stopNotify == False:
         title = "Blender"
         renderingText = " - Rendering"
         osSound = 'Submarine'

@@ -39,11 +39,12 @@ def showNotify(firstFrame, lastFrame, currentFrame, totalFrames, frameStartTime,
         title = "Blender"
         renderingText = " - Rendering"
         osSound = 'Submarine'
+        percentage = 0
         if oSystem == "Windows":
             icopath = sys.path[12]+'\\animationrender\\ico\\Icon3.ico'
-        if oSystem == "Linux":
+        elif oSystem == "Linux":
             icopath = os.getenv("HOME")+'\\.config\\blender\\'+sVer+'\\scripts\\addons\\animationrender\\ico\\Icon3.ico'
-        percentage = 0
+        
         
         if step != totalFrames + 1:
             totalTime = datetime.now() - renderStartTime

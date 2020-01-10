@@ -52,8 +52,9 @@ def showNotify(firstFrame, lastFrame, currentFrame, totalFrames, frameStartTime,
 
     if step != totalFrames + 1:
         totalTime = datetime.now() - renderStartTime
-        timeRemaining = (totalTime / step) * (totalFrames - step)
-        timeRemaining = str(timeRemaining)[:-7]
+        if step != 1:
+            timeRemaining = (totalTime / (step - 1)) * (totalFrames - step + 1)
+            timeRemaining = str(timeRemaining)[:-7]
         totalTime = str(totalTime)[:-7]
         percentage = "%.1f" % ((step - 1) / totalFrames * 100)
         if step == 1:

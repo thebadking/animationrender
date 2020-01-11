@@ -16,6 +16,11 @@ If you are having problems rendering even one frame you can set the first and th
 Disabling the Notification check will enable output to console.
 Its not possible to interrupt the render process and thats why it saves the blender file before starting(option), if you want to interrupt the process you will have to force close blender.
 
+>USE ONLY TO RENDER TO SEQUENCIAL IMAGE FILES
+It will not work if you try to outup directly to a video file.
+
+>The blender file needs to be saved at least once somewhere if you want the autosave function to work, it exists because since you cannot stop the Rendering process, if you really need to stop it, you have to force close Blender, and at that time you cannot save the file, it will save you a lot of headaches. (Client calls you and wants something changed while it was rendering, and you forgot to save the file)
+
 >**IMPORTANT NOTICE FOR MAC:**
 
 Installing the addon on mac should be done manually as the decompression method from blender destroys a binary necessary for notification.

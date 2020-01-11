@@ -20,9 +20,9 @@ It will not work if you try to output directly to a video file.
 
 >The blender file needs to be saved at least once somewhere if you want the autosave function to work, it exists because since you cannot stop the Rendering process, if you really need to stop it, you have to force close Blender, and at that time you cannot save the file, it will save you a lot of headaches. (Client calls you and wants something changed while it was rendering, and you forgot to save the file)
 
->**IMPORTANT NOTICE FOR MAC:**
+>**IMPORTANT NOTICE FOR macOS:**
 
-Installing the addon on mac should be done manually as the decompression method from blender destroys a binary necessary for notification.
+Installing the addon on macOS should be done manually as the decompression method from blender destroys a binary necessary for notification.
 you can install the addon like this:
 uncompress both folders ( animationrender and modules )
 place them on:

@@ -13,9 +13,9 @@
 #  Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 
-import sys
+import sys, bpy, platform
 from animationrender import prefs, main, render, notification
-
+oSystem = platform.system()
 # register the addon + modules found in globals()
 bl_info = {
     "name": "Animation Render",
@@ -29,6 +29,37 @@ bl_info = {
     "tracker_url": "",
     "category": "Render",
 }
+
+
+class animationRenderPreferences(bpy.types.AddonPreferences):
+    bl_idname = __name__
+    soundList: bpy.props.EnumProperty(
+        items=[
+            ('Baso', 'Baso ', '', '', 0),
+            ('Blow', 'Blow', '', '', 1),
+            ('Bottle', 'Bottle', '', '', 2),
+            ('Frog', 'Frog', '', '', 3),
+            ('Funk', 'Funk', '', '', 4),
+            ('Glass', 'Glass', '', '', 5),
+            ('Hero', 'Hero', '', '', 6),
+            ('Morse', 'Morse', '', '', 7),
+            ('Ping', 'Ping', '', '', 8),
+            ('Pop', 'Pop', '', '', 9),
+            ('Purr', 'Purr', '', '', 10),
+            ('Sosumi', 'Sosumi', '', '', 11),
+            ('Submarine', 'Submarine', '', '', 12),
+            ('Tink', 'Tink', '', '', 13)
+            ],
+        default='Submarine',
+        name = 'Sound List'
+    )
+    if oSystem == "Darwin": 
+        def draw(self, context):
+            layout = self.layout
+            layout.label(text='Sound Selection for notification:')
+            row = layout.row()
+            row.prop(self, 'soundList', expand=False)
+
 
 
 def _call_globals(attr_name):
@@ -46,8 +77,11 @@ def _flush_modules(pkg_name):
 
 def register():
     _call_globals("register")
+    bpy.utils.register_class(animationRenderPreferences)
 
 
 def unregister():
+    bpy.utils.unregister_class(animationRenderPreferences)
     _call_globals("unregister")
     _flush_modules("animationrender")  # reload animationrender
+    

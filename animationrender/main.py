@@ -33,30 +33,18 @@ class RenderStart(bpy.types.Operator):
         RenderProcess(context)
         return {"FINISHED"}
 
-class StartBox(bpy.types.Operator):
-    bl_idname = "dialog.box"
-    bl_label= "You cant stop the Rendering process"
-    def execute(self, context):
-        from animationrender.render import RenderProcess
-        RenderProcess(context)
-        return {"FINISHED"}
-    def invoke(self, context, event):
-        return context.window_manager.invoke_props_dialog(self)
-
-    #PANEL SETTINGS
+#PANEL SETTINGS
 class MySettings(bpy.types.PropertyGroup): 
     aBool = bpy.props.BoolProperty
     aInt = bpy.props.IntProperty
     aFloat = bpy.props.FloatProperty
     aString = bpy.props.StringProperty
+    aList = bpy.props.EnumProperty
     l_sound_check: aBool( name = "Play sound at completion", description = "Play sound at completion of Animation Render", default = True)
     f_sound_check: aBool( name = "Play sound per frame", description = "Play sound at completion of each frame", default = False)
     notify_check: aBool( name = "Enable Notification", description = "It will enable notifications using OS notification", default = True)
-#    f_frame: aInt( name = "First Frame", description = "First Frame to be rendered", default = 1)
-#    l_frame: aInt( name = "Last Frame", description = "Last Frame to be rendered", default = 250)
     saveFile: aBool( name="Save File", description= "Saves Blender file before rendering", default = True)
-        
-        #PANEL--------------------------------------------------
+#PANEL-----------------------------------------------------
 class RenderProcessPnl(bpy.types.Panel):
     bl_label = "Animation Render no Preview"
     bl_idname = "RENDER_PT_RenderProcess"
@@ -67,13 +55,11 @@ class RenderProcessPnl(bpy.types.Panel):
     def draw(self, context):
         def  createProperty(prop):
             self.layout.prop(context.scene.my_tool, prop)
-#display Properties
+#DISPLAY PROPERTIES-----------------------------------------
         if oSystem == "Darwin":
             createProperty("l_sound_check")
             createProperty("f_sound_check")
         createProperty("notify_check")
-#        createProperty("f_frame")
-#        createProperty("l_frame")
         createProperty("saveFile")
 
         self.layout.operator("render.start")
@@ -85,14 +71,12 @@ def register():
     bpy.utils.register_class(RenderProcessPnl)
     bpy.types.Scene.my_tool = bpy.props.PointerProperty(type=MySettings)
     bpy.utils.register_class(RenderStart)
-    bpy.utils.register_class(StartBox)
 
 def unregister():
     bpy.utils.unregister_class(MySettings)
     bpy.utils.unregister_class(RenderProcessPnl)
     del bpy.types.Scene.my_tool
     bpy.utils.unregister_class(RenderStart)
-    bpy.utils.unregister_class(StartBox)
 
 if __name__ == "__main__":
     register()

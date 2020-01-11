@@ -24,8 +24,8 @@ if oSystem == "Darwin":
     try:
         from pync import Notifier
     except ImportError as error:
-        print("pync IMPORT ERROR")
         stopNotify = True
+        print("pync IMPORT ERROR")
         print("Running Blender " + sVer + " on macOS System Notification will not work")
 
 elif oSystem == "Windows" or oSystem == "Linux":
@@ -34,16 +34,13 @@ elif oSystem == "Windows" or oSystem == "Linux":
     except ImportError as error:
         stopNotify = True
         print("Plyer Import Error")
-        print("WINDOWS: SYS PATH 10") #C:\Users\USER\AppData\Roaming\Blender Foundation\Blender\2.81\scripts\addons\modules
-        print("WINDOWS: SYS PATH 12") #C:\Users\USER\AppData\Roaming\Blender Foundation\Blender\2.81\scripts\addons
-        print("LINUX: SYS PATH 8")  #/home/USER/.config/blender/2.81/scripts/addons/modules
-        print("LINUX: SYS PATH 10") #/home/USER/.config/blender/2.81/scripts/addons
         print("Running Blender "+sVer+" on " +oSystem+ " System Notification will not work")
 
 def showNotify(firstFrame, lastFrame, currentFrame, totalFrames, frameStartTime, renderStartTime, step):
     title = "Blender"
     renderingText = " - Rendering"
-    osSound = 'Submarine'
+    if oSystem == "Darwin":
+        osSound = bpy.context.preferences.addons['animationrender'].preferences.soundList
     percentage = 0
     if oSystem == "Windows":
         icopath = sys.path[12]+'\\animationrender\\ico\\Icon3.ico'

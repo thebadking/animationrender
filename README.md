@@ -7,7 +7,7 @@ Animation render is an addon for blender, it renders by python script bypassing 
 - Render Animation
 - Enable notifications (OS notifications since Blender GUI is frozen while processing)
 - Save file before Rendering
-- Sound per frame and/or sound at completion (for macOS only)
+- Sound per frame and/or sound at completion (for macOS only) for windows and linux there is allways a system sound associated, mute it or unmute as necessary
 
 Notifications include how many frames are to be rendered, current frame, percentage of completion and time estimate for completion
 

@@ -1,5 +1,5 @@
-**Blender Animation Render
-*****Process that bypasses GUI to avoid crashes
+>**Blender Animation Render
+>*****Process that bypasses GUI to avoid crashes
 
 Animation render is an addon for blender 2.80 and up, tested upt to 2.83, it renders by python script bypassing the GUI, avoiding all the crashes that are GUI related while rendering. It works for cycles and eevee. It allows you to render an interval of frames grabing the details from context like first frame and last frame, output path and all the details required for rendering, it adds some buttons on the Output menu like:
 - Render Animation
@@ -26,6 +26,6 @@ place them on:
 Restart blender after activation module or notifications will not work until restart
 
 
-***Screenshot MAC
+>***Screenshot MAC
 
 ![](https://raw.githubusercontent.com/thebadking/animationrender/master/screenshots/screenshot_macOS.png)

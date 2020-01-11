@@ -14,7 +14,6 @@ Notifications include how many frames are to be rendered, current frame, percent
 If you are having problems rendering even one frame you can set the first and the last frame to be the one you need rendered.
 
 Disabling the Notification check will enable output to console.
-Its not possible to interrupt the render process and thats why it saves the blender file before starting(option), if you want to interrupt the process you will have to force close blender.
 
 >USE ONLY TO RENDER TO SEQUENCIAL IMAGE FILES
 It will not work if you try to output directly to a video file.

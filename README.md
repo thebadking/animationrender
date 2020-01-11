@@ -5,7 +5,7 @@ Tested on macOS, Windows and Linux. (from blender 2.80 to 2.83)
 
 Animation render is an addon for blender, it renders by python script bypassing the GUI, avoiding all the crashes that are GUI related while rendering. It works for cycles and eevee. It allows you to render an interval of frames grabing the details from context like first frame and last frame, output path and all the details required for rendering, it adds some buttons on the Output menu like:
 - Render Animation
-- Enable notifications
+- Enable notifications (OS notifications since Blender GUI is frozen while processing)
 - Save file before Rendering
 - Sound per frame and/or sound at completion (for macOS only)
 

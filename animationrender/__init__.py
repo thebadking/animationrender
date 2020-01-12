@@ -22,7 +22,7 @@ bl_info = {
     "author": "André Ferreira",
     "version": (1, 0, 0),
     "blender": (2, 81),
-    "location": "Scene: Output Properties",
+    "location": "Properties > Output Properties",
     "description": "A rendering process that bypasses GUI to avoid crashes",
     "warning": "",
     "wiki_url": "https://github.com/thebadking/animationrender",

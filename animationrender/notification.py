@@ -41,7 +41,6 @@ def showNotify(firstFrame, lastFrame, currentFrame, totalFrames, frameStartTime,
     renderingText = " - Rendering"
     if oSystem == "Darwin":
         osSound = bpy.context.preferences.addons['animationrender'].preferences.soundList
-    percentage = 0
     if oSystem == "Windows":
         icopath = sys.path[12]+'\\animationrender\\ico\\Icon3.ico'
     elif oSystem == "Linux":

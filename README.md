@@ -32,6 +32,9 @@ place them on:
 
 Restart blender after activation module or notifications will not work until restart
 
+***Screenshot WINDOWS***
+
+![](https://raw.githubusercontent.com/thebadking/animationrender/master/screenshots/Screenshot.png)
 
 ***Screenshot MAC***
 

@@ -45,14 +45,14 @@ def RenderProcess(context):
         context.scene.render.filepath = tempPath
         print("RENDER DONE!")
 
-        
-    if firstFrame > lastFrame:
-        totalFrames = firstFrame - lastFrame + 1
-        while currentFrame >= lastFrame:
-            frameStartTime = datetime.now()
-            render(context, firstFrame, lastFrame, currentFrame, totalFrames, frameStartTime, renderStartTime, step, tempPath)
-            currentFrame = currentFrame - context.scene.frame_step
-            step = step + context.scene.frame_step
-        showNotify(firstFrame, lastFrame, currentFrame, totalFrames, frameStartTime, renderStartTime, step)
-        context.scene.render.filepath = tempPath
-        print("RENDER DONE!")
+#    NEGATIVE PROGRESSION RENDER - UNUSED        
+#    if firstFrame > lastFrame:
+#        totalFrames = firstFrame - lastFrame + 1
+#        while currentFrame >= lastFrame:
+#            frameStartTime = datetime.now()
+#            render(context, firstFrame, lastFrame, currentFrame, totalFrames, frameStartTime, renderStartTime, step, tempPath)
+#            currentFrame = currentFrame - context.scene.frame_step
+#            step = step + context.scene.frame_step
+#        showNotify(firstFrame, lastFrame, currentFrame, totalFrames, frameStartTime, renderStartTime, step)
+#        context.scene.render.filepath = tempPath
+#        print("RENDER DONE!")

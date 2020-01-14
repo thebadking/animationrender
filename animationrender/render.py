@@ -35,19 +35,24 @@ def RenderProcess(context):
     print("Starting Render:")
     
     if firstFrame <= lastFrame:
-        totalFrames = lastFrame - firstFrame + 1
-        while currentFrame <= lastFrame:
+        totalFrames = (lastFrame - firstFrame + 1)
+        if(totalFrames % context.scene.frame_step != 0):
+            if context.scene.frame_step > (totalFrames/2):
+                totalFrames = int(totalFrames/context.scene.frame_step)
+            else:
+                totalFrames = int((totalFrames/context.scene.frame_step) + 1)
+        while context.scene.frame_current <= lastFrame:
             frameStartTime = datetime.now()
             render(context, firstFrame, lastFrame, currentFrame, totalFrames, frameStartTime, renderStartTime, step, tempPath)
             currentFrame = currentFrame + context.scene.frame_step
-            step = step + context.scene.frame_step
+            step = step + 1
         showNotify(firstFrame, lastFrame, currentFrame, totalFrames, frameStartTime, renderStartTime, step)
         context.scene.render.filepath = tempPath
         print("RENDER DONE!")
 
 #    NEGATIVE PROGRESSION RENDER - UNUSED        
 #    if firstFrame > lastFrame:
-#        totalFrames = firstFrame - lastFrame + 1
+#        totalFrames = int((firstFrame - lastFrame + 1)/step)
 #        while currentFrame >= lastFrame:
 #            frameStartTime = datetime.now()
 #            render(context, firstFrame, lastFrame, currentFrame, totalFrames, frameStartTime, renderStartTime, step, tempPath)

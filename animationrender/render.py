@@ -15,10 +15,8 @@ import bpy
 from animationrender.notification import showNotify
 from datetime import datetime
 
-def render(context, firstFrame, lastFrame, currentFrame, totalFrames, frameStartTime, renderStartTime, step, tempPath):
-    showNotify(firstFrame, lastFrame, currentFrame, totalFrames, frameStartTime, renderStartTime, step)
-    print("Current Frame: " +str(currentFrame))
-    context.scene.render.filepath = tempPath+str(currentFrame)
+def render(context, tempPath):
+    context.scene.render.filepath = tempPath+str(context.scene.frame_current)
     bpy.ops.render.render(write_still=True)
     context.scene.frame_set(context.scene.frame_current+context.scene.frame_step)
 
@@ -33,31 +31,16 @@ def RenderProcess(context):
     renderStartTime = datetime.now()
     step = 1
     print("Starting Render:")
-    
-    if firstFrame <= lastFrame:
-        totalFrames = (lastFrame - firstFrame + 1)
-        if(totalFrames % context.scene.frame_step != 0):
-            if context.scene.frame_step > (totalFrames/2):
-                totalFrames = int(totalFrames/context.scene.frame_step)
-            else:
-                totalFrames = int((totalFrames/context.scene.frame_step) + 1)
-        while context.scene.frame_current <= lastFrame:
-            frameStartTime = datetime.now()
-            render(context, firstFrame, lastFrame, currentFrame, totalFrames, frameStartTime, renderStartTime, step, tempPath)
-            currentFrame = currentFrame + context.scene.frame_step
-            step = step + 1
+    totalFrames = (lastFrame - firstFrame + 1)
+    if(totalFrames % context.scene.frame_step != 0):
+        totalFrames = int((totalFrames/context.scene.frame_step) + 1)
+    while context.scene.frame_current <= lastFrame:
+        frameStartTime = datetime.now()
+        currentFrame = context.scene.frame_current
         showNotify(firstFrame, lastFrame, currentFrame, totalFrames, frameStartTime, renderStartTime, step)
-        context.scene.render.filepath = tempPath
-        print("RENDER DONE!")
+        render(context, tempPath)
+        step = step + 1
+    showNotify(firstFrame, lastFrame, currentFrame, totalFrames, frameStartTime, renderStartTime, step)
+    context.scene.render.filepath = tempPath
+    print("RENDER DONE!")
 
-#    NEGATIVE PROGRESSION RENDER - UNUSED        
-#    if firstFrame > lastFrame:
-#        totalFrames = int((firstFrame - lastFrame + 1)/step)
-#        while currentFrame >= lastFrame:
-#            frameStartTime = datetime.now()
-#            render(context, firstFrame, lastFrame, currentFrame, totalFrames, frameStartTime, renderStartTime, step, tempPath)
-#            currentFrame = currentFrame - context.scene.frame_step
-#            step = step + context.scene.frame_step
-#        showNotify(firstFrame, lastFrame, currentFrame, totalFrames, frameStartTime, renderStartTime, step)
-#        context.scene.render.filepath = tempPath
-#        print("RENDER DONE!")

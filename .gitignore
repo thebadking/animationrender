@@ -4,6 +4,9 @@
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 Rprblender/
 animation_nodes/
+object_fracture_it/
+space_view3d_pie_menus/
+node_arrange/
 **/.DS_Store
 # User-specific files
 *.rsuser
@@ -350,3 +353,4 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+reboot.py

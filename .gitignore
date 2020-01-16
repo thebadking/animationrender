@@ -354,3 +354,4 @@ MigrationBackup/
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
 reboot.py
+Sculpt_Alphas_Manager.py

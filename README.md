@@ -30,7 +30,7 @@ place them on:
 
 >**IMPORTANT NOTICE FOR LINUX:**
 
-Restart blender after activation module or notifications will not work until restart
+Restart blender after activation of the add-on or notifications will not work until restart
 
 ***Screenshot WINDOWS***
 

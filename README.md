@@ -1,24 +1,38 @@
-***Blender Animation Render***
+***Blender Animation Render Manager Queue V2.0***
+Now added a queue manager
+
+On Plugin settings you have the output folder for the queued files (default: /tmp/queue/)
+
+On the output separator you have the Manager buttons.
+
+Adding to the manager will make a copy of the current state of the Blender file you are edditing with all the context settings.
+So you can queue multiple times the same file by chosing the diferent camera angle value it will create a folder with that camera angle together with the project name, so you have the output images organized and separated, chosing none on the camera angle will output the files to a folder with the name of the project only. All this outputs are inside the output location defined in "Output" in the context, dont forget to define it before adding to queue.
+
+IMPORTANT
+when pressing "RENDER QUEUE" it will start rendering the jobs and you won't be able to use that instance of Blender,
+I advice for you to open another instance of blender to start the Render Process, and you can continue working on the other instance.
+
+You can stop the rendering process from any Blender instance that is not rendering
+
+At the moment you can only use one machine to render the queue, I will be adding the option to render the same queue with several machines, and after that a manager accessible from a webpage so you can see the progress from your phone or any device connected to the internet.
+
+***Blender Animation Render V1.0***
 ***Process that bypasses GUI to avoid crashes***
 
-Tested on macOS, Windows and Linux. (from blender 2.80 to 2.83)
+Tested on macOS, Windows and Linux. Blender 2.83
 
-Animation render is an addon for blender, it renders by python script bypassing the GUI, avoiding all the crashes that are GUI related while rendering. It works for cycles and eevee. It allows you to render an interval of frames grabing the details from context like first frame and last frame, output path and all the details required for rendering, it adds some buttons on the Output menu like:
-- Render Animation
+Animation render Manager is an addon for blender, it renders by python script bypassing the GUI, avoiding all the crashes that are GUI related while rendering. It works for cycles and eevee. It allows you to render an interval of frames grabing the details from context like first frame and last frame, output path and all the details required for rendering, it adds some buttons on the Output menu like:
 - Enable notifications (OS notifications since Blender GUI is frozen while processing)
 - Save file before Rendering
 - Sound per frame and/or sound at completion (for macOS only) for windows and linux there is allways a system sound associated, mute it or unmute as necessary
+- Queue manager buttons
 
 Notifications include how many frames are to be rendered, current frame, percentage of completion and time estimate for completion
-
-If you are having problems rendering even one frame you can set the first and the last frame to be the one you need rendered.
 
 Disabling the Notification check will enable output to console.
 
 >USE ONLY TO RENDER TO SEQUENCIAL IMAGE FILES
 It will not work if you try to output directly to a video file.
-
->The blender file needs to be saved at least once somewhere if you want the autosave function to work, it exists because since you cannot stop the Rendering process, if you really need to stop it, you have to force close Blender, and at that time you cannot save the file, it will save you a lot of headaches. (Client calls you and wants something changed while it was rendering, and you forgot to save the file)
 
 >**IMPORTANT NOTICE FOR macOS:**
 
@@ -32,10 +46,10 @@ place them on:
 
 Restart blender after activation of the add-on or notifications will not work until restart
 
-***Screenshot WINDOWS***
+***Screenshot preferences***
 
-![](https://raw.githubusercontent.com/thebadking/animationrender/master/screenshots/Screenshot.png)
+![](https://raw.githubusercontent.com/thebadking/animationrender/master/screenshots/animation_render2.png)
 
-***Screenshot MAC***
+***Screenshot GUI***
 
-![](https://raw.githubusercontent.com/thebadking/animationrender/master/screenshots/screenshot_macOS.png)
+![](https://raw.githubusercontent.com/thebadking/animationrender/master/screenshots/render_manager.png)

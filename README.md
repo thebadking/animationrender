@@ -16,7 +16,6 @@ You can stop the rendering process from any Blender instance that is not renderi
 
 At the moment you can only use one machine to render the queue, I will be adding the option to render the same queue with several machines, and after that a manager accessible from a webpage so you can see the progress from your phone or any device connected to the internet.
 
-***Blender Animation Render V1.0***
 ***Process that bypasses GUI to avoid crashes***
 
 Tested on macOS, Windows and Linux. Blender 2.83

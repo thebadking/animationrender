@@ -73,7 +73,6 @@ class MySettings(bpy.types.PropertyGroup):
     l_sound_check: aBool( name = "Play sound at completion", description = "Play sound at completion of Animation Render", default = True)
     f_sound_check: aBool( name = "Play sound per frame", description = "Play sound at completion of each frame", default = False)
     notify_check: aBool( name = "Enable Notification", description = "It will enable notifications using OS notification", default = True)
-    saveFile: aBool( name="Save File", description= "Saves Blender file before rendering", default = True)
     camera_angle: aList(
         items=[
             ('0', 'None', '', '', 0),
@@ -106,7 +105,6 @@ class RenderProcessPnl(bpy.types.Panel):
             createProperty("l_sound_check")
             createProperty("f_sound_check")
         createProperty("notify_check")
-        createProperty("saveFile")
         createProperty("camera_angle")
         self.layout.operator("add.queue")
         self.layout.operator("render.queue")

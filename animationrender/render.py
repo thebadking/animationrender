@@ -31,8 +31,6 @@ def render(tempPath):
     bpy.context.scene.frame_set(bpy.context.scene.frame_current+bpy.context.scene.frame_step)
 
 def RenderProcess():
-    #if bpy.context.scene.my_tool.saveFile == True:
-    #    bpy.ops.wm.save_mainfile()
     tempPath = bpy.context.scene.render.filepath[:]
     firstFrame = bpy.context.scene.frame_start
     lastFrame = bpy.context.scene.frame_end

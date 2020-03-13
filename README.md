@@ -48,8 +48,8 @@ Restart blender after activation of the add-on or notifications will not work un
 
 ***Screenshot preferences***
 
-![](https://raw.githubusercontent.com/thebadking/animationrender/master/screenshots/animation render2.png)
+![](https://raw.githubusercontent.com/thebadking/animationrender/master/screenshots/animation_render2.png)
 
 ***Screenshot GUI***
 
-![](https://raw.githubusercontent.com/thebadking/animationrender/master/screenshots/render manager.png)
+![](https://raw.githubusercontent.com/thebadking/animationrender/master/screenshots/render_manager.png)

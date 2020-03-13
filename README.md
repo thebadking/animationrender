@@ -46,10 +46,7 @@ place them on:
 
 Restart blender after activation of the add-on or notifications will not work until restart
 
-***Screenshot preferences***
+***Screenshot***
 
-![](https://raw.githubusercontent.com/thebadking/animationrender/master/screenshots/animation_render1.png)
+![](https://raw.githubusercontent.com/thebadking/animationrender/master/screenshots/Animation_render_manager.png)
 
-***Screenshot GUI***
-
-![](https://raw.githubusercontent.com/thebadking/animationrender/master/screenshots/animation_render2.png)

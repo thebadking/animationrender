@@ -22,4 +22,7 @@ def register():
 
 
 def unregister():
-    bpy.utils.unregister_class(AnimationRenderToolsetPreferences)
+    try:
+        bpy.utils.unregister_class(AnimationRenderToolsetPreferences)
+    except RuntimeError:
+        pass

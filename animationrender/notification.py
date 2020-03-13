@@ -25,7 +25,7 @@ if oSystem == "Darwin":
         from pync import Notifier
     except ImportError as error:
         stopNotify = True
-        print("pync IMPORT ERROR")
+        print("pync module IMPORT ERROR")
         print("Running Blender " + sVer + " on macOS System Notification will not work")
 
 elif oSystem == "Windows" or oSystem == "Linux":
@@ -33,7 +33,7 @@ elif oSystem == "Windows" or oSystem == "Linux":
         from plyer import notification
     except ImportError as error:
         stopNotify = True
-        print("Plyer Import Error")
+        print("plyer module IMPORT ERROR")
         print("Running Blender "+sVer+" on " +oSystem+ " System Notification will not work")
 
 def showNotify(firstFrame, lastFrame, currentFrame, totalFrames, frameStartTime, renderStartTime, step):

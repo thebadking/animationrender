@@ -8,6 +8,8 @@ object_fracture_it/
 space_view3d_pie_menus/
 node_arrange/
 **/.DS_Store
+**/.idea
+**/.vscode/
 # User-specific files
 *.rsuser
 *.suo
@@ -355,3 +357,7 @@ MigrationBackup/
 .ionide/
 reboot.py
 Sculpt_Alphas_Manager.py
+
+animationrender/mydatabase.db
+
+animationrender/conn.py

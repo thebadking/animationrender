@@ -14,33 +14,47 @@
 import bpy
 from animationrender.notification import showNotify
 from datetime import datetime
+from pathlib import Path
 
-def render(context, tempPath):
-    context.scene.render.filepath = tempPath+str(context.scene.frame_current)
+def render(tempPath):
+    if bpy.context.scene.my_tool.camera_angle == 0:
+        cameraAngle = ""
+    else:
+        baseName = bpy.path.basename(bpy.context.blend_data.filepath)
+        if bpy.context.scene.my_tool.camera_angle == "0":
+            stringAdd = "/" + baseName[9:-6] + "/"
+        else:
+            stringAdd = "/" + baseName[9:-6] + " - Camera Angle: " + bpy.context.scene.my_tool.camera_angle + "/"
+
+    bpy.context.scene.render.filepath = tempPath+stringAdd+str(bpy.context.scene.frame_current)
     bpy.ops.render.render(write_still=True)
-    context.scene.frame_set(context.scene.frame_current+context.scene.frame_step)
+    bpy.context.scene.frame_set(bpy.context.scene.frame_current+bpy.context.scene.frame_step)
 
-def RenderProcess(context):
-    if bpy.context.scene.my_tool.saveFile == True:
-        bpy.ops.wm.save_mainfile()
-    tempPath = context.scene.render.filepath[:]
-    firstFrame = context.scene.frame_start
-    lastFrame = context.scene.frame_end
-    context.scene.frame_set(firstFrame)
-    currentFrame = context.scene.frame_current
+def RenderProcess():
+    #if bpy.context.scene.my_tool.saveFile == True:
+    #    bpy.ops.wm.save_mainfile()
+    tempPath = bpy.context.scene.render.filepath[:]
+    firstFrame = bpy.context.scene.frame_start
+    lastFrame = bpy.context.scene.frame_end
+    bpy.context.scene.frame_set(firstFrame)
+    currentFrame = bpy.context.scene.frame_current
     renderStartTime = datetime.now()
     step = 1
     print("Starting Render:")
     totalFrames = (lastFrame - firstFrame + 1)
-    if(totalFrames % context.scene.frame_step != 0):
-        totalFrames = int((totalFrames/context.scene.frame_step) + 1)
-    while context.scene.frame_current <= lastFrame:
-        frameStartTime = datetime.now()
-        currentFrame = context.scene.frame_current
-        showNotify(firstFrame, lastFrame, currentFrame, totalFrames, frameStartTime, renderStartTime, step)
-        render(context, tempPath)
-        step = step + 1
+    if(totalFrames % bpy.context.scene.frame_step != 0):
+        totalFrames = int((totalFrames/bpy.context.scene.frame_step) + 1)
+    basePath = bpy.context.preferences.addons['animationrender'].preferences.directoryQueue
+    while bpy.context.scene.frame_current <= lastFrame:
+        if Path(basePath + 'running').is_file():
+            frameStartTime = datetime.now()
+            currentFrame = bpy.context.scene.frame_current
+            showNotify(firstFrame, lastFrame, currentFrame, totalFrames, frameStartTime, renderStartTime, step)
+            render(tempPath)
+            step = step + 1
+        else:
+            break
     showNotify(firstFrame, lastFrame, currentFrame, totalFrames, frameStartTime, renderStartTime, step)
-    context.scene.render.filepath = tempPath
+    bpy.context.scene.render.filepath = tempPath
     print("RENDER DONE!")
 

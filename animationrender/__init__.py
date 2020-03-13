@@ -20,16 +20,26 @@ oSystem = platform.system()
 bl_info = {
     "name": "Animation Render",
     "author": "André Ferreira",
-    "version": (1, 0, 0),
-    "blender": (2, 81),
+    "version": (2, 0, 0),
+    "blender": (2, 83),
     "location": "Properties > Output Properties",
-    "description": "A rendering process that bypasses GUI to avoid crashes",
+    "description": "A rendering Manager",
     "warning": "",
     "wiki_url": "https://github.com/thebadking/animationrender",
     "tracker_url": "",
     "category": "Render",
 }
 
+def countFiles():
+    basePath = bpy.context.preferences.addons['animationrender'].preferences.directoryQueue
+    files = []
+    # r=root, d=directories, f = files
+    for r, d, f in os.walk(basePath):
+        for file in f:
+            if '.blend' in file:
+                files.append(os.path.join(r, file))
+    len(files)
+    print(len(files))
 
 class animationRenderPreferences(bpy.types.AddonPreferences):
     bl_idname = __name__
@@ -53,13 +63,21 @@ class animationRenderPreferences(bpy.types.AddonPreferences):
         default='Submarine',
         name = 'Sound List'
     )
+    directoryQueue: bpy.props.StringProperty(
+        name="Temp Queue",
+        subtype='FILE_PATH',
+        default='/tmp/queue/'
+    )
     if oSystem == "Darwin": 
         def draw(self, context):
             layout = self.layout
             layout.label(text='Sound Selection for notification:')
             row = layout.row()
             row.prop(self, 'soundList', expand=False)
-
+    def draw(self, context):
+        layout = self.layout
+        row = layout.row()
+        row.prop(self, "directoryQueue")
 
 
 def _call_globals(attr_name):

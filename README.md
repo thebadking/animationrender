@@ -1,4 +1,4 @@
-**USE v1.0 V2.0 is broken at the moment*** check releases tab
+**USE v1.1 V2.0 is broken at the moment*** check releases tab
 
 
 ***Blender Animation Render Manager Queue V2.0***

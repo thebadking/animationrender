@@ -1,4 +1,5 @@
 **USE v1.1 V2.0 is broken at the moment*** check releases tab
+https://github.com/thebadking/animationrender/releases/tag/1.1
 
 
 ***Blender Animation Render Manager Queue V2.0***

@@ -1,4 +1,4 @@
-**USE v1.1 V2.0 is broken at the moment*** check releases tab
+**USE v1.1 BECAUSE  V2.0 is broken at the moment*** check releases tab
 https://github.com/thebadking/animationrender/releases/tag/1.1
 
 
